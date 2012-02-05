@@ -1,8 +1,13 @@
 class Resident < ActiveRecord::Base
   belongs_to :household
   belongs_to :user
-  has_many :settlements, :foreign_key => "payer_id"
+  has_many :settlements_paid, :foreign_key => "payer_id"
+  has_many :settlements_received, :foreign_key => "payee_id"
   has_many :expenses, :foreign_key => "payer_id"
+  
+  def settlements
+    Settlement.where(["payee_id = ? or payer_id = ?", self, self])
+  end
 
   def balance_with resident
     balance = 0
