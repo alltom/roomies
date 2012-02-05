@@ -23,7 +23,7 @@ class Chore < ActiveRecord::Base
         ci.price = 0
         ci.start_date = (start_date - lead_time.days)
         ci.end_date = start_date
-        ci.chore_id = self
+        ci.chore = self
       end
       length -= interval
       res_index += 1

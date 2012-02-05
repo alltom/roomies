@@ -1,0 +1,25 @@
+<h1><%= @chore_instance.chore.name %></h1>
+<% if @chore_instance.price > 0 %>
+<p>Current Offer: <%= number_to_currency(@chore_instance.price) %></p>
+<% end %>
+<h2>Bids</h2>
+<% if @chore_instance.offers.length > 0 %>
+<table class="table table-striped">
+<% @chore_instance.offers.each do |offer| %>
+<tr>
+  <td><%= offer.price %></td>
+  <td><%= offer.offerer.user.name %></td>
+  <% if @chore_instance.resident == current_resident %>
+  <td><%= link_to "Accept &raquo;".html_safe, "#" %></td>
+  <% end %>
+<% end %>
+</table>
+<% else %>
+<p>No current bids.</p>
+<% end %>
+<% if @chore_instance.resident != current_resident %>
+<%= form_for(@chore_instance.offers.build) do |f| %>
+<%= f.number_field :price, class: "span2" %>
+<%= f.submit "Make Offer &raquo;".html_safe, class: "btn btn-primary" %>
+<% end %>
+<% end %>

@@ -1,6 +1,4 @@
 Roomies::Application.routes.draw do
-  resources :chore_instances
-
   root to: "dashboard#index"
 
   devise_scope :user do
@@ -12,6 +10,9 @@ Roomies::Application.routes.draw do
   resources :settlements
   resources :expenses
   resources :chores
+  resources :offers
+  
+  match "/chore_instances/:id/popup" => "chore_instances#popup"
   
   match "/admin" => "admin/users#index"
   namespace :admin do
