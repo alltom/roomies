@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120205060133) do
+ActiveRecord::Schema.define(:version => 20120205061109) do
 
   create_table "households", :force => true do |t|
     t.string   "name"
@@ -27,6 +27,19 @@ ActiveRecord::Schema.define(:version => 20120205060133) do
     t.datetime "created_at",                                                   :null => false
     t.datetime "updated_at",                                                   :null => false
   end
+
+  create_table "settlements", :force => true do |t|
+    t.integer  "initiator_id"
+    t.integer  "payer_id"
+    t.integer  "payee_id"
+    t.boolean  "confirmed"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  add_index "settlements", ["initiator_id"], :name => "index_settlements_on_initiator_id"
+  add_index "settlements", ["payee_id"], :name => "index_settlements_on_payee_id"
+  add_index "settlements", ["payer_id"], :name => "index_settlements_on_payer_id"
 
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
