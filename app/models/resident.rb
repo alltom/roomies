@@ -20,13 +20,12 @@ class Resident < ActiveRecord::Base
     end
 
     settlements.each do |settlement|
-      if settlement.payer == user
+      if settlement.payer == self
         if settlement.payee == resident
           balance += settlement.amount
         end
-      else if settlement.payer == resident
+      elsif settlement.payer == resident
              balance -= settlement.amount
-           end
       end
     end
     return balance
