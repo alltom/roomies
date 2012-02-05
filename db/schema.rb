@@ -11,7 +11,22 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120205055620) do
+ActiveRecord::Schema.define(:version => 20120205060133) do
+
+  create_table "households", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "residents", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "household_id"
+    t.decimal  "balance",      :precision => 8, :scale => 2
+    t.boolean  "active",                                     :default => true, :null => false
+    t.datetime "created_at",                                                   :null => false
+    t.datetime "updated_at",                                                   :null => false
+  end
 
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "", :null => false

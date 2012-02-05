@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  references: 
+  references: 
+  balance: 9.99
+  active: false
+
+two:
+  references: 
+  references: 
+  balance: 9.99
+  active: false
