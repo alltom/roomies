@@ -1,7 +1,7 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
-one:
-  name: MyString
+house1:
+  name: House 1
 
-two:
-  name: MyString
+house2:
+  name: House 2
