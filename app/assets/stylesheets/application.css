@@ -9,6 +9,11 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require_self
- *= require_tree .
+ *= require chore_instances
+ *= require chores
+ *= require dashboard
+ *= require expenses
+ *= require fullcalendar
+ *= require settlements
  *= require twitter/bootstrap
 */
