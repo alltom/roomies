@@ -24,7 +24,7 @@ class Chore < ActiveRecord::Base
         :chore_id => self)
       length -= interval
       res_index += 1
-      start_date+=interval.days
+      self.start_date+=interval.days
     end
   end
 
