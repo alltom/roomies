@@ -11,7 +11,27 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120205061109) do
+ActiveRecord::Schema.define(:version => 20120205065905) do
+
+  create_table "expenseds", :force => true do |t|
+    t.integer  "expense_id"
+    t.integer  "resident_id"
+    t.decimal  "amount",      :precision => 8, :scale => 2
+    t.datetime "created_at",                                :null => false
+    t.datetime "updated_at",                                :null => false
+  end
+
+  add_index "expenseds", ["expense_id"], :name => "index_expenseds_on_expense_id"
+  add_index "expenseds", ["resident_id"], :name => "index_expenseds_on_resident_id"
+
+  create_table "expenses", :force => true do |t|
+    t.integer  "payer_id"
+    t.decimal  "amount",     :precision => 8, :scale => 2
+    t.datetime "created_at",                               :null => false
+    t.datetime "updated_at",                               :null => false
+  end
+
+  add_index "expenses", ["payer_id"], :name => "index_expenses_on_payer_id"
 
   create_table "households", :force => true do |t|
     t.string   "name"
@@ -22,10 +42,9 @@ ActiveRecord::Schema.define(:version => 20120205061109) do
   create_table "residents", :force => true do |t|
     t.integer  "user_id"
     t.integer  "household_id"
-    t.decimal  "balance",      :precision => 8, :scale => 2
-    t.boolean  "active",                                     :default => true, :null => false
-    t.datetime "created_at",                                                   :null => false
-    t.datetime "updated_at",                                                   :null => false
+    t.boolean  "active",       :default => true, :null => false
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
   end
 
   create_table "settlements", :force => true do |t|
