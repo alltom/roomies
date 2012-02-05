@@ -1,7 +1,7 @@
 class Resident < ActiveRecord::Base
   belongs_to :household
   belongs_to :user
-  has_many :settlements
+  has_many :settlements, :foreign_key => "payer_id"
   has_many :expenses, :foreign_key => "payer_id"
 
   def balance_with resident
@@ -19,6 +19,16 @@ class Resident < ActiveRecord::Base
       balance -= given.amount
     end
 
+    settlements.each do |settlement|
+      if settlement.payer == user
+        if settlement.payee == resident
+          balance += settlement.amount
+        end
+      else if settlement.payer == resident
+             balance -= settlement.amount
+           end
+      end
+    end
     return balance
 
     #BigDecimal.new("19.99")
