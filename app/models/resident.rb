@@ -7,4 +7,8 @@ class Resident < ActiveRecord::Base
   def balance_with resident
     BigDecimal.new("19.99")
   end
+  
+  def name
+    user.name
+  end
 end

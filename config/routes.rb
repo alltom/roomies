@@ -1,16 +1,19 @@
 Roomies::Application.routes.draw do
   root to: "dashboard#index"
-  
-  namespace :admin do
-    resources :households
-    resources :users
-    resources :residents
-  end
 
   devise_scope :user do
     root to: "devise/sessions#new"
   end
   devise_for :users
+  
+  resources :settlements
+  
+  match "/admin" => "admin/users#index"
+  namespace :admin do
+    resources :households
+    resources :users
+    resources :residents
+  end
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
