@@ -22,18 +22,19 @@
        <% end %>
    </div>
     <div class="span4">
-      <h2>Chores for Sale</h2>
-      <% @my_offers.each do |ci| %>
-      <%= ci.chore.name %> Buy
+      <h2>My Offers</h2>
+      <table class="table">
+      <% @my_offers.each do |o| %>
+      <tr><td><%= o.chore_instance.chore.name %> Price: <%= number_to_currency(o.price) %></td></tr>
       <% end %>
-      <p><a class="btn" href="#">View details &raquo;</a></p>
+      </table>
     </div>
   </div>
 
   <hr>
 
   <footer>
-    <p>&copy; Company 2012</p>
+    <p>&copy; Roomies 2012</p>
   </footer>
 
 </div> <!-- /container -->

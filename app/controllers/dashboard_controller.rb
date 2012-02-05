@@ -14,7 +14,7 @@ class DashboardController < ApplicationController
         @debtees.delete_if { |d| current_resident.balance_with(d) == 0 }
 
         @chores_for_sale = ChoreInstance.all.find_all{|ci| ci.price > 0}
-        @my_offers = ChoreInstance.all.find_all{|ci| ci.resident == @cur_res}.find_all{|c| !c.offers.blank?}
+        @my_offers = ChoreInstance.all.find_all{|ci| ci.resident == @cur_res}.find_all{|c| !c.offers.blank?}.map{|c| c.offers}.flatten
       end
   end
 
