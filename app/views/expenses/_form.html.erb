@@ -1,0 +1,124 @@
+<% if @expense.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@expense.errors.count, "error") %> prohibited this expense from being saved:</h2>
+
+    <ul>
+    <% @expense.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<%= form_for(@expense, html: { class: "form-horizontal" }) do |f| %>
+  <fieldset>
+    
+    <div class="control-group">
+      <%= f.label :amount, "Total Amount", class: "control-label" %>
+      <div class="controls">
+        <div class="input-prepend">
+          <span class="add-on">$</span>
+          <%= f.number_field :amount, in: 0..99999, step: 0.01, class: "span2" %>
+        </div>
+        <p class="help-block">How much did it cost?</p>
+      </div>
+    </div>
+    
+    <h2>Who'll need to pay you back?</h2>
+    
+    <p>LOL, no one will.</p>
+    
+    <%= f.fields_for :expenseds do |ef| %>
+    <div class="control-group">
+      <%= ef.hidden_field :resident_id %>
+      <%= ef.hidden_field :leftover_amount, class: "leftover-amount" %>
+      <% if ef.object.resident == current_resident %>
+        <%= ef.label :amount, ef.object.resident.user.name + " (You)", class: "control-label", style: "font-weight: bold" %>
+      <% else %>
+        <%= ef.label :amount, ef.object.resident.user.name, class: "control-label" %>
+      <% end %>
+      <div class="controls">
+        <div class="input-prepend">
+          <span class="add-on">$</span>
+          <%= ef.number_field :amount, in: 0..99999, step: 0.01, class: "span2 individual-amount" %> <span class="leftover-plus"></span>
+        </div>
+        <!-- <p class="help-block">How much is this person responsible for?</p> -->
+        <p><%= ef.label :exempt, "#{ef.check_box(:exempt, class: "individual-exempt")} This person shouldn't pay anything.".html_safe, class: "checkbox" %></p>
+      </div>
+    </div>
+    <% end %>
+    
+    <div class="control-group">
+      <label class="control-label">Left Over</label>
+      <div class="controls">
+        <span class="input-xlarge uneditable-input span2" id="left-over-total">&nbsp;</span> =
+        <span class="input-xlarge uneditable-input span2" id="left-over-individual">&nbsp;</span> per person
+        <p class="help-block">Whatever cost you don't assign to someone is split evenly among the entire household.</p>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <%= f.submit class: "btn btn-primary" %>
+      <%= link_to "Cancel", :back, class: "btn" %>
+    </div>
+    
+  </fieldset>
+<% end %>
+
+<script>
+var totalResidents = <%= @expense.expenseds.length %>
+function getNum(dom) {
+  var v = parseFloat($(dom).val())
+  return isNaN(v) ? 0 : v
+}
+function updateLeftover() {
+  var total = getNum($("#expense_amount"))
+  var payingResidents = totalResidents
+  
+  var individualAmounts = _.map($(".individual-amount").toArray(), function(dom) { return getNum($(dom)) })
+  var individualExempts = _.map($(".individual-exempt").toArray(), function(dom) { return $(dom).is(":checked") })
+  console.log(individualAmounts, individualExempts)
+  
+  for(var i in individualAmounts) {
+    if(individualExempts[i]) {
+      payingResidents--
+    } else {
+      total -= individualAmounts[i]
+    }
+  }
+  
+  $("#left-over-total").text("$" + total)
+  
+  if(payingResidents > 0) {
+    var individual = total / payingResidents
+    $("#left-over-individual").text("$" + individual)
+    
+    var pluses = $(".leftover-plus").toArray()
+    var hiddenPlusFields = $(".leftover-amount").toArray()
+    for(var i in pluses) {
+      if(individualExempts[i]) {
+        $(pluses[i]).text("")
+        $(hiddenPlusFields[i]).val(0)
+      } else {
+        $(pluses[i]).text("+ $" + individual)
+        $(hiddenPlusFields[i]).val(individual)
+      }
+    }
+  } else {
+    $("#left-over-individual").html("$&#8734;")
+    $(".leftover-plus").text("")
+    $(".leftover-amount").val(0)
+  }
+}
+$(function() {
+  $("#expense_amount").change(updateLeftover)
+  $("#expense_amount").keyup(updateLeftover)
+  $("#expense_amount").blur(updateLeftover)
+  $("#expense_amount").mouseup(updateLeftover)
+  $(".individual-amount").live("change", updateLeftover)
+  $(".individual-amount").live("keyup", updateLeftover)
+  $(".individual-amount").live("blur", updateLeftover)
+  $(".individual-amount").live("mouseup", updateLeftover)
+  $(".individual-exempt").live("change", updateLeftover)
+})
+</script>

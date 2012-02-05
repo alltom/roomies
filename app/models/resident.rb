@@ -8,36 +8,21 @@ class Resident < ActiveRecord::Base
   def settlements
     Settlement.where(["payee_id = ? or payer_id = ?", self, self])
   end
-
+  
   def balance_with resident
+    transactions = []
+    transactions += Expensed.all.map { |e| [e.expense.payer, e.resident, e.amount] }
+    transactions += Settlement.all.map { |s| [s.payer, s.payee, s.amount] }
+    
     balance = 0
-
-    paid = expenses.each{|expense| expense.expensed}.flatten
-    paid = paid.find_all{|expensed| expensed.resident == resident}
-    paid.each do |expensed|
-      balance += expensed.amount
-    end
-
-    givens = resident.expenses.each{|expense| expense.expensed}.flatten
-    givens = givens.find_all{|given| given.resident == user}
-    givens.each do |given|
-      balance -= given.amount
-    end
-
-    puts settlements.first.to_s
-    settlements.each do |settlement|
-      if settlement.payer == self
-        if settlement.payee == resident
-          balance += settlement.amount
-        end
-      elsif settlement.payer == resident
-             balance -= settlement.amount
+    transactions.each do |from, to, amount|
+      if from == self && to == resident
+        balance += amount
+      elsif from == resident && to == self
+        balance -= amount
       end
     end
-    puts name + " with " + resident.name + " balance:" + balance.to_s
-    return balance
-
-    #BigDecimal.new("19.99")
+    balance
   end
 
   def name

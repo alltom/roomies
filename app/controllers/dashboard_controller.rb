@@ -10,10 +10,8 @@ class DashboardController < ApplicationController
         @residents = current_resident.household.residents.find_all{|resident| 
         resident != @cur_res 
       }
-        @debtors, @debtees = @residents.partition{|resident|
-          current_resident.balance_with(resident) > 0 }
-        puts "debtors" + @debtors.to_s
-        puts "debtees" + @debtees.to_s
+        @debtors, @debtees = @residents.partition { |resident| current_resident.balance_with(resident) > 0 }
+        @debtees.delete_if { |d| current_resident.balance_with(d) == 0 }
       end
   end
 
