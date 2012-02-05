@@ -1,0 +1,19 @@
+<h1>Listing households</h1>
+
+<table class="table">
+  <tr>
+    <th>Name</th>
+    <th>Actions</th>
+  </tr>
+
+<% @households.each do |household| %>
+  <tr>
+    <td><%= household.name %></td>
+    <td><%= link_to 'Show', admin_household_path(household), class: "btn" %> <%= link_to 'Edit', edit_admin_household_path(household), class: "btn" %> <%= link_to 'Destroy', admin_household_path(household), class: "btn btn-danger", confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Household', new_admin_household_path %>

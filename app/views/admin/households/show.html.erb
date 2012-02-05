@@ -1,0 +1,21 @@
+<% unless notice.blank? %><p id="notice"><%= notice %></p><% end %>
+
+<table class="table">
+  <tr>
+    <th>Name</th>
+    <td><%= @household.name %></td>
+  </tr>
+  <tr>
+    <th>Residents</th>
+    <td>
+      <ul>
+        <% @household.residents.each do |resident| %>
+          <li><%= resident.user.name %></li>
+        <% end %>
+      </ul>
+    </td>
+  </tr>
+</table>
+
+<%= link_to 'Edit', edit_admin_household_path(@household), class: "btn" %>
+<%= link_to 'Back', admin_households_path, class: "btn" %>
