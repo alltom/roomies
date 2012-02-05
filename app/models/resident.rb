@@ -30,7 +30,7 @@ class Resident < ActiveRecord::Base
         if settlement.payee == resident
           balance += settlement.amount
         end
-      elsif settlement.payer == resident.user
+      elsif settlement.payer == resident
              balance -= settlement.amount
       end
     end
