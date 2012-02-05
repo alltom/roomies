@@ -1,6 +1,7 @@
 class SettlementsController < ApplicationController
   def new
     @settlement = Settlement.new
+    @residents = current_resident.household.residents.all - [current_resident]
   end
 
   def create
@@ -11,5 +12,10 @@ class SettlementsController < ApplicationController
     else
       render action: "new"
     end
+  end
+  
+  def balance
+    current_resident = current_user.residents.first
+    @resident = current_resident.household.residents.find(params[:resident_id])
   end
 end
