@@ -1,4 +1,7 @@
 Roomies::Application.routes.draw do
+  devise_scope :user do
+    root to: "devise/sessions#new"
+  end
   devise_for :users
 
   # The priority is based upon order of creation:
