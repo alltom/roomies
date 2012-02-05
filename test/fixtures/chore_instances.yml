@@ -1,11 +1,1 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
-
-one:
-  price: 9.99
-  start: 2012-02-05 11:29:49
-  end: 2012-02-05 11:29:49
-
-two:
-  price: 9.99
-  start: 2012-02-05 11:29:49
-  end: 2012-02-05 11:29:49

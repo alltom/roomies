@@ -1,9 +1,19 @@
 class Chore < ActiveRecord::Base
+  belongs_to :household
+  
+  validates :interval, numericality: { greater_than: 0 }
+  validates :lead_time, numericality: { greater_than_or_equal_to: 0 }
+  
+  validate do
+    errors.add(:lead_time, "must be less than the interval") unless lead_time < interval
+  end
+  
+  after_create :generate_chore_instances
 
   @@ttl = 14
 
   def generate_chore_instances
-    residents = Residents.all(sort_by{rand})
+    residents = Resident.all.sort_by{rand}
     res_index = 0
     res_size = residents.size
     length = @@ttl
