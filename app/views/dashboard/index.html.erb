@@ -12,14 +12,15 @@
   <div class="row">
     <div class="span4">
       <h2>Money You Owe</h2>
-       <% @residents.each do |resident| %>
-       <%= resident.name %>: $<%= resident.get_balance(:@curRes) %> <br />
+       <% @debtees.each do |debtee| %>
+       <%= debtee.name %>: $<%= debtee.balance_with(@cur_res) %> <br />
+       <% end %>
     </div>
     <div class="span4">
       <h2>Money You're Owed</h2>
-       <% @residents.each do |resident| %>
-       <%= resident.name %>: $<%= @curRes.get_balance(:resident) %> <br />
-      <p><a class="btn" href="#">View details &raquo;</a></p>
+       <% @debtors.each do |debtor| %>
+       <%= debtor.name %>: $<%= @cur_res.balance_with(:debtor) %> <br />
+       <% end %>
    </div>
     <div class="span4">
       <h2>Heading</h2>
