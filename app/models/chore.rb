@@ -10,9 +10,12 @@ class Chore < ActiveRecord::Base
 
     while length > 0
       ChoreInstance.create(:resident_id =>residents[res_index%res_size],
-        :price => 0, :start => (start_date - lead_time.days), :end => start_date,
+        :price => 0, :start_date => (start_date - lead_time.days), :end_date => start_date,
         :chore_id => self)
       length -= interval
+      res_index += 1
+      start_date+=interal.days
+    end
   end
 
 end
