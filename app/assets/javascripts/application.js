@@ -13,4 +13,10 @@
 //= require jquery
 //= require jquery-ui
 //= require jquery_ujs
-//= require_tree .
+//= require chore_instances
+//= require chores
+//= require dashboard
+//= require fullcalendar.min
+//= require settlements
+//= require underscore-min
+//= require application
