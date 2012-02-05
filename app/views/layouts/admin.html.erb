@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-  <title>Roomies</title>
+  <title>Roomies Admin</title>
   
   <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
   <!--[if lt IE 9]>
@@ -33,19 +33,14 @@
         <a class="brand" href="#">Roomies</a>
         <div class="nav-collapse">
           <ul class="nav">
-            <li class="active"><%= link_to "Home", :root %></li>
-            <% if user_signed_in? %>
-              <li><%= link_to "Sign Out", destroy_user_session_path %></li>
-            <% else %>
-              <li><%= link_to "Sign In", new_user_session_path %></li>
-            <% end %>
+            <li><%= link_to "Users", admin_users_path %></li>
+            <li><%= link_to "Residents", admin_residents_path %></li>
+            <li><%= link_to "Households", admin_households_path %></li>
           </ul>
-          <% if user_signed_in? %>
-            <ul class="nav pull-right">
-              <li><%= link_to "Admin", admin_users_path %></li>
-              <li><%= link_to "Sign Out", destroy_user_session_path %></li>
+          <ul class="nav pull-right">
+            <li><%= link_to "Home", root_path %></li>
+            <li><%= link_to "Sign Out", destroy_user_session_path %></li>
           </ul>
-          <% end %>
         </div><!--/.nav-collapse -->
       </div>
     </div>

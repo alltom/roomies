@@ -1,0 +1,23 @@
+<h1>Listing residents</h1>
+
+<table class="table">
+  <tr>
+    <th>User</th>
+    <th>Household</th>
+    <th>Active?</th>
+    <th>Actions</th>
+  </tr>
+
+<% @residents.each do |resident| %>
+  <tr>
+    <td><%= resident.user.name %></td>
+    <td><%= resident.household.name %></td>
+    <td><%= resident.active? %></td>
+    <td><%= link_to 'Show', admin_resident_path(resident), class: "btn" %> <%= link_to 'Edit', edit_admin_resident_path(resident), class: "btn" %> <%= link_to 'Destroy', admin_resident_path(resident), class: "btn btn-danger", confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Resident', new_admin_resident_path %>

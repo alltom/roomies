@@ -2,7 +2,9 @@ Roomies::Application.routes.draw do
   root to: "dashboard#index"
   
   namespace :admin do
+    resources :households
     resources :users
+    resources :residents
   end
 
   devise_scope :user do

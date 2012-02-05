@@ -1,0 +1,15 @@
+<% unless notice.blank? %><p id="notice"><%= notice %></p><% end %>
+
+<table class="table">
+  <tr>
+    <th>User</th>
+    <td><%= @resident.user.email %></td>
+  </tr>
+  <tr>
+    <th>Household</th>
+    <td><%= @resident.household.name %></td>
+  </tr>
+</table>
+
+<%= link_to 'Edit', edit_admin_resident_path(@resident), class: "btn" %>
+<%= link_to 'Back', admin_residents_path, class: "btn" %>
