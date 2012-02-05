@@ -12,6 +12,8 @@ class DashboardController < ApplicationController
       }
         @debtors, @debtees = @residents.partition { |resident| current_resident.balance_with(resident) > 0 }
         @debtees.delete_if { |d| current_resident.balance_with(d) == 0 }
+
+        @chores_for_sale = ChoreInstance.all.find_all{|ci| ci.price > 0}
       end
   end
 
