@@ -10,6 +10,7 @@ Roomies::Application.routes.draw do
   
   get "settlements/balance"
   resources :settlements
+  resources :expenses
   
   match "/admin" => "admin/users#index"
   namespace :admin do
