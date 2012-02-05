@@ -25,7 +25,7 @@
       <h2>My Offers</h2>
       <table class="table">
       <% @my_offers.each do |o| %>
-      <tr><td><%= o.chore_instance.chore.name %> Price: <%= number_to_currency(o.price) %></td></tr>
+      <tr><td><%= o.chore_instance.chore.name %></td> <td>Price: <%= number_to_currency(o.price) %></td></tr>
       <% end %>
       </table>
     </div>
