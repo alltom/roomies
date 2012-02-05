@@ -5,7 +5,7 @@
 
     <h1>Hello, <%= current_user.email %>!</h1>
     <p>This is a template for a simple marketing or informational website. It includes a large callout called the hero unit and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
-    <p><a class="btn btn-primary btn-large">Learn more &raquo;</a></p>
+    <p><%= link_to "Add Chore &raquo;".html_safe, new_chore_path, class: "btn btn-primary btn-large", style: "color: white" %></p>
   </div>
 
   <div class="row">

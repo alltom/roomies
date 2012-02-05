@@ -11,26 +11,26 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120205162949) do
-
-  create_table "chore", :force => true do |t|
-    t.string   "name"
-    t.integer  "interval"
-    t.integer  "lead_time"
-    t.datetime "start_date"
-    t.integer  "household_id"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
-  end
+ActiveRecord::Schema.define(:version => 20120205173122) do
 
   create_table "chore_instances", :force => true do |t|
-    t.datetime "start"
-    t.datetime "end"
+    t.date     "start_date"
+    t.date     "end_date"
     t.integer  "chore_id"
     t.integer  "resident_id"
     t.decimal  "price",       :precision => 8, :scale => 2
     t.datetime "created_at",                                :null => false
     t.datetime "updated_at",                                :null => false
+  end
+
+  create_table "chores", :force => true do |t|
+    t.string   "name"
+    t.integer  "interval"
+    t.integer  "lead_time"
+    t.date     "start_date"
+    t.integer  "household_id"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
   end
 
   create_table "expenseds", :force => true do |t|
@@ -59,7 +59,7 @@ ActiveRecord::Schema.define(:version => 20120205162949) do
     t.datetime "updated_at", :null => false
   end
 
-  create_table "offer", :force => true do |t|
+  create_table "offers", :force => true do |t|
     t.decimal  "price",             :precision => 8, :scale => 2
     t.integer  "chore_instance_id"
     t.integer  "offerer_id"
