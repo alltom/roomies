@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120205065905) do
+ActiveRecord::Schema.define(:version => 20120205082148) do
 
   create_table "expenseds", :force => true do |t|
     t.integer  "expense_id"
@@ -52,8 +52,9 @@ ActiveRecord::Schema.define(:version => 20120205065905) do
     t.integer  "payer_id"
     t.integer  "payee_id"
     t.boolean  "confirmed"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.datetime "created_at",                                 :null => false
+    t.datetime "updated_at",                                 :null => false
+    t.decimal  "amount",       :precision => 8, :scale => 2
   end
 
   add_index "settlements", ["initiator_id"], :name => "index_settlements_on_initiator_id"
