@@ -13,14 +13,13 @@ class Chore < ActiveRecord::Base
   DAYS_TO_CREATE = 14
 
   def generate_chore_instances
-    residents = Resident.all.sort_by { rand }
+    residents = household.residents.sort_by { rand }
     res_index = 0
-    res_size = residents.size
     length = DAYS_TO_CREATE
 
     while length > 0
       ChoreInstance.create do |ci|
-        ci.resident_id = residents[res_index % res_size]
+        ci.resident_id = residents[res_index % residents.length]
         ci.price = 0
         ci.start_date = (start_date - lead_time.days)
         ci.end_date = start_date
