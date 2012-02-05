@@ -1,13 +1,10 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
-one:
-  references: 
-  references: 
-  balance: 9.99
-  active: false
-
-two:
-  references: 
-  references: 
-  balance: 9.99
-  active: false
+tom:
+  user: tom
+  household: house1
+  active: true
+erek:
+  user: erek
+  household: house1
+  active: true

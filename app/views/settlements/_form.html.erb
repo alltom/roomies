@@ -19,7 +19,7 @@
           <%= f.label :payee_id, class: "control-label" %>
           <div class="controls">
             <%= f.collection_select :payee_id, other_residents, :id, :name %>
-            <p class="help-block">Who did you pay back?</p>
+            <p class="help-block">Who did you give money to?</p>
           </div>
         </div>
         
@@ -27,7 +27,7 @@
           <%= f.label :amount, class: "control-label" %>
           <div class="controls">
             <%= f.number_field :amount, in: 0..99999, step: 0.01 %>
-            <p class="help-block">How much did you pay them?</p>
+            <p class="help-block">How much did you give them?</p>
           </div>
         </div>
       </div>
