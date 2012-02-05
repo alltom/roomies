@@ -1,4 +1,6 @@
 Roomies::Application.routes.draw do
+  root to: "dashboard#index"
+
   devise_scope :user do
     root to: "devise/sessions#new"
   end
