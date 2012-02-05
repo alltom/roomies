@@ -1,0 +1,4 @@
+{
+  "message" : "You owe <%= @resident.name %> <%= number_to_currency(current_resident.balance_with(@resident)) %>.",
+  "amount" : <%= current_resident.balance_with(@resident) %>
+}

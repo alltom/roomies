@@ -6,6 +6,7 @@ Roomies::Application.routes.draw do
   end
   devise_for :users
   
+  get "settlements/balance"
   resources :settlements
   
   match "/admin" => "admin/users#index"
