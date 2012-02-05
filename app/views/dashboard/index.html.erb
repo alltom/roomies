@@ -81,55 +81,63 @@
         var modalBody = document.getElementById('myModalBody');
         var eventName = calEvent.title;
         modalHeader.innerHTML = eventName;
-        $('#myModal').modal('show');
+        $('#myModal').show()
+        $('#myModal .modal-body').load("/chore_instances/" + calEvent.id + "/popup")
         
         $(this).css('border-color', 'red');
       },
       events: [
+      <% ChoreInstance.all.each do |ci| %>
         {
-          title: 'All Day Event',
-          start: new Date(y, m, 1)
+          title: "<%= ci.chore.name %>",
+          id: <%= ci.id %>,
+          start: new Date(<%= ci.start_date.year %>, <%= ci.start_date.month-1 %>, <%= ci.start_date.day %>),
+          end: new Date(<%= ci.end_date.year %>, <%= ci.end_date.month-1 %>, <%= ci.end_date.day %>),
+          allDay: true
+        },
+      <% end %>
+      /*
+        {
+          title: 'Dishes',
+          start: new Date(y, m, 1),
+          allDay: true
         },
         {
-          title: 'Long Event',
+          title: 'Dishes',
           start: new Date(y, m, d-5),
-          end: new Date(y, m, d-2)
+          end: new Date(y, m, d-2),
+          allDay: true
         },
         {
           id: 999,
-          title: 'Repeating Event',
+          title: 'Dishes',
           start: new Date(y, m, d-3, 16, 0),
-          allDay: false
+          allDay: true
         },
         {
           id: 999,
-          title: 'Repeating Event',
+          title: 'Clean Toilet',
           start: new Date(y, m, d+4, 16, 0),
-          allDay: false
+          allDay: true
         },
         {
-          title: 'Meeting',
+          title: 'Vacuum',
           start: new Date(y, m, d, 10, 30),
-          allDay: false
+          allDay: true
         },
         {
-          title: 'Lunch',
+          title: 'Dishes',
           start: new Date(y, m, d, 12, 0),
           end: new Date(y, m, d, 14, 0),
-          allDay: false
+          allDay: true
         },
         {
-          title: 'Birthday Party',
+          title: 'Garbage',
           start: new Date(y, m, d+1, 19, 0),
           end: new Date(y, m, d+1, 22, 30),
-          allDay: false
-        },
-        {
-          title: 'Click for Google',
-          start: new Date(y, m, 28),
-          end: new Date(y, m, 29),
-          url: 'http://google.com/'
+          allDay: true
         }
+        */
       ]
     });
     
@@ -138,16 +146,23 @@
 </script>
 <style type='text/css'>
 
-/*  body {
-    margin-top: 40px;
-    text-align: center;
-    font-size: 14px;
-    font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
-    }
-*/
   #calendar {
     width: 900px;
     margin: 20px auto;
     }
 
 </style>
+<a class="btn" data-toggle="modal" href="#myModal" >Launch Modal</a>
+<div id="myModal" class="modal hide">
+  <div class="modal-header">
+    <a class="close" data-dismiss="modal">×</a>
+    <h3 id="myModalHeader">Modal header</h3>
+  </div>
+  <div class="modal-body">
+    <p id="myModalBody">One fine body…</p>
+  </div>
+  <div class="modal-footer">
+    <a href="#" class="btn btn-primary">Save changes</a>
+    <a href="#" class="btn" data-dismiss="modal" onClick="$('#myModal').hide()">Close</a>
+  </div>
+</div>
