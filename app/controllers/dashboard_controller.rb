@@ -12,6 +12,8 @@ class DashboardController < ApplicationController
       }
         @debtors, @debtees = @residents.partition{|resident|
           current_resident.balance_with(resident) > 0 }
+        puts "debtors" + @debtors.to_s
+        puts "debtees" + @debtees.to_s
       end
   end
 

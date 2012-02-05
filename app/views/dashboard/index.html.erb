@@ -19,7 +19,7 @@
     <div class="span4">
       <h2>Money You're Owed</h2>
        <% @debtors.each do |debtor| %>
-       <%= debtor.name %>: $<%= number_to_currency(@cur_res.balance_with(debtor)) %> <br />
+       <%= debtor.name %>: <%= number_to_currency(@cur_res.balance_with(debtor)) %> <br />
        <% end %>
    </div>
     <div class="span4">

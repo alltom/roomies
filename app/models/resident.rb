@@ -19,15 +19,17 @@ class Resident < ActiveRecord::Base
       balance -= given.amount
     end
 
+    puts settlements.first.to_s
     settlements.each do |settlement|
       if settlement.payer == self
         if settlement.payee == resident
           balance += settlement.amount
         end
-      elsif settlement.payer == resident
+      elsif settlement.payer == resident.user
              balance -= settlement.amount
       end
     end
+    puts name + " with " + resident.name + " balance:" + balance.to_s
     return balance
 
     #BigDecimal.new("19.99")
