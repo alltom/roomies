@@ -19,7 +19,7 @@ class Chore < ActiveRecord::Base
 
     while length > 0
       ChoreInstance.create do |ci|
-        ci.resident_id = residents[res_index % residents.length]
+        ci.resident = residents[res_index % residents.length]
         ci.price = 0
         ci.start_date = (start_date - lead_time.days)
         ci.end_date = start_date

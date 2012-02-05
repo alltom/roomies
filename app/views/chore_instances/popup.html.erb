@@ -1,4 +1,4 @@
-<h1><%= @chore_instance.chore.name %></h1>
+<!-- <h1><%= @chore_instance.chore.name %></h1> -->
 <% if @chore_instance.price > 0 %>
 <p>Current Offer: <%= number_to_currency(@chore_instance.price) %></p>
 <% end %>
@@ -7,7 +7,7 @@
 <table class="table table-striped">
 <% @chore_instance.offers.each do |offer| %>
 <tr>
-  <td><%= offer.price %></td>
+  <td><%= number_to_currency(offer.price) %></td>
   <td><%= offer.offerer.user.name %></td>
   <% if @chore_instance.resident == current_resident %>
   <td><%= link_to "Accept &raquo;".html_safe, "#" %></td>
@@ -19,6 +19,7 @@
 <% end %>
 <% if @chore_instance.resident != current_resident %>
 <%= form_for(@chore_instance.offers.build) do |f| %>
+<%= f.hidden_field :chore_instance_id, value: @chore_instance.id %>
 <%= f.number_field :price, class: "span2" %>
 <%= f.submit "Make Offer &raquo;".html_safe, class: "btn btn-primary" %>
 <% end %>
