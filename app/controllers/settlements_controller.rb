@@ -1,11 +1,10 @@
 class SettlementsController < ApplicationController
   def new
     @settlement = Settlement.new
-    @residents = current_resident.household.residents.all - [current_resident]
   end
 
   def create
-    @settlement = Settlement.new(params[:settlement])
+    @settlement = Settlement.new({ initiator: current_resident, payer: current_resident }.merge(params[:settlement]))
 
     if @settlement.save
       redirect_to root_url, notice: "Settlement successfully logged."

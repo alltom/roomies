@@ -13,13 +13,13 @@
     <div class="span4">
       <h2>Money You Owe</h2>
        <% @debtees.each do |debtee| %>
-       <%= debtee.name %>: $<%= debtee.balance_with(@cur_res) %> <br />
+       <%= debtee.name %>: <%= number_to_currency(debtee.balance_with(@cur_res)) %> <br />
        <% end %>
     </div>
     <div class="span4">
       <h2>Money You're Owed</h2>
        <% @debtors.each do |debtor| %>
-       <%= debtor.name %>: $<%= @cur_res.balance_with(:debtor) %> <br />
+       <%= debtor.name %>: $<%= number_to_currency(@cur_res.balance_with(:debtor)) %> <br />
        <% end %>
    </div>
     <div class="span4">
