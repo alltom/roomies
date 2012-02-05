@@ -7,11 +7,13 @@ class Chore < ActiveRecord::Base
   validate do
     errors.add(:lead_time, "must be less than the interval") unless lead_time < interval
   end
+  
+  after_create :generate_chore_instances
 
   @@ttl = 14
 
   def generate_chore_instances
-    residents = Residents.all(sort_by{rand})
+    residents = Resident.all.sort_by{rand}
     res_index = 0
     res_size = residents.size
     length = @@ttl
@@ -21,6 +23,7 @@ class Chore < ActiveRecord::Base
         :price => 0, :start => (start_date - lead_time.days), :end => start_date,
         :chore_id => self)
       length -= interval
+    end
   end
 
 end
