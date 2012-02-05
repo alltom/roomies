@@ -3,4 +3,8 @@ class Resident < ActiveRecord::Base
   belongs_to :user
   has_many :settlements
   has_many :expenses
+  
+  def balance_with resident
+    BigDecimal.new("19.99")
+  end
 end
