@@ -1,0 +1,29 @@
+<%= form_for(@chore_instance) do |f| %>
+  <% if @chore_instance.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@chore_instance.errors.count, "error") %> prohibited this chore_instance from being saved:</h2>
+
+      <ul>
+      <% @chore_instance.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :price %><br />
+    <%= f.text_field :price %>
+  </div>
+  <div class="field">
+    <%= f.label :start %><br />
+    <%= f.datetime_select :start %>
+  </div>
+  <div class="field">
+    <%= f.label :end %><br />
+    <%= f.datetime_select :end %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

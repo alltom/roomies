@@ -1,4 +1,6 @@
 Roomies::Application.routes.draw do
+  resources :chore_instances
+
   root to: "dashboard#index"
 
   devise_scope :user do
